@@ -1,6 +1,6 @@
 #!/bin/bash
 
-communicationFilename=".sigpyr_comm_file"
+communicationFilename=$1
 expectedReadySignal="ready"
 until [[ "$actualReadySignal" == "$expectedReadySignal" ]]
 do
