@@ -1,6 +1,7 @@
 #!/bin/bash
 
-TIMEOUT=./dep/timeout.sh
+temp=$( realpath "$0" ) && absolutePathToMainScriptFile=$( dirname "$temp" )
+TIMEOUT="${absolutePathToMainScriptFile}/dep/timeout.sh"
 
 TIMEOUT_PERIOD_IN_SECONDS=5
 PORT_NUMBER=4444
@@ -48,7 +49,7 @@ COMMUNICATION_FILENAME=".signpyr_comm_file_$MILLISECONDS_SINCE_EPOCH"
 
 nc -lvvdp $PORT_NUMBER > $COMMUNICATION_FILENAME &
 
-$TIMEOUT -t $TIMEOUT_PERIOD_IN_SECONDS ./dep/sigpyr_internal.sh $COMMUNICATION_FILENAME
+$TIMEOUT -t $TIMEOUT_PERIOD_IN_SECONDS ${absolutePathToMainScriptFile}/dep/sigpyr_internal.sh $COMMUNICATION_FILENAME
 
 pkill -fx "nc -lvvdp 4444"
 rm -f $COMMUNICATION_FILENAME
