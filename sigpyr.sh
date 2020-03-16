@@ -45,11 +45,10 @@ fi
 
 # TODO: This should be generated in a method.
 MILLISECONDS_SINCE_EPOCH=$(( $(date '+%s%N') / 1000000));
-COMMUNICATION_FILENAME=".signpyr_comm_file_$MILLISECONDS_SINCE_EPOCH"
+COMMUNICATION_FILENAME="/tmp/sigpyr_$MILLISECONDS_SINCE_EPOCH"
 
 nc -lvvdp $PORT_NUMBER > $COMMUNICATION_FILENAME &
 
 $TIMEOUT -t $TIMEOUT_PERIOD_IN_SECONDS ${absolutePathToMainScriptFile}/dep/sigpyr_internal.sh $COMMUNICATION_FILENAME
 
 pkill -fx "nc -lvvdp 4444"
-rm -f $COMMUNICATION_FILENAME
